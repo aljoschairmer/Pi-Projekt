@@ -16,34 +16,13 @@ module com.pi4j.devices{
     requires jdk.unsupported;
     requires com.pi4j.plugin.linuxfs;
     requires java.desktop;
+    requires com.fazecast.jSerialComm;
 
 
     uses com.pi4j.extension.Extension;
     uses com.pi4j.provider.Provider;
-
-    // allow access to these classes
-    exports com.pi4j.devices.tca9548;
-    exports com.pi4j.devices.mcp23008;
-    exports com.pi4j.devices.mcp23017;
-    exports com.pi4j.devices.mcp23xxxApplication;
-    exports com.pi4j.devices.appConfig;
-    exports com.pi4j.devices.base_i2c;
-    // new TOF chip
-    exports com.pi4j.devices.vl53L0X;
-
     exports com.pi4j.devices.bmp280 ;
-    exports com.pi4j.devices.is31Fl37Matrix;
-    exports com.pi4j.devices.mcp3008;
+    exports jSerialComm;
 
-    exports com.pi4j.devices.sn74hc595;
-    exports com.pi4j.devices.mcp4725;
-    exports com.pi4j.devices.hd44780u_lcd1602a;
-    exports com.pi4j.devices.pcf8574a_lcd1602a;
-    exports com.pi4j.devices.mcp23017_lcd1602a;
-    exports com.pi4j.devices.dht22;
-    exports com.pi4j.devices.ads1256;
-    exports com.pi4j.devices.dac8552;
-    exports com.pi4j.devices.mpl3115a2;
-    exports com.pi4j.devices.at24c512;
 
-    }
+}
