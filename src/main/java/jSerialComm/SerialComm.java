@@ -22,7 +22,7 @@ public class SerialComm {
         }
 
         //Open the first Available port
-        SerialPort MySerialPort = AvailablePorts[0];
+        SerialPort MySerialPort = AvailablePorts[2];
 
 
         // Set Serial port Parameters
@@ -60,6 +60,13 @@ public class SerialComm {
             int bytesTxed  = 0;
 
             bytesTxed  = MySerialPort.writeBytes(WriteByte,1);
+
+            String text = "Hallo";
+
+            MySerialPort.getOutputStream().write(text.getBytes());
+            MySerialPort.getOutputStream().flush();
+            MySerialPort.getOutputStream().close();
+
 
             System.out.print(" Bytes Transmitted -> " + bytesTxed );
 
