@@ -1,7 +1,9 @@
 package jSerialCommSend;
 
 
-import com.fazecast.jSerialComm.*;
+import com.fazecast.jSerialComm.SerialPort;
+
+import java.nio.charset.StandardCharsets;
 
 public class SerialCommSend {
     public static void main (String[] Args) {
@@ -22,6 +24,7 @@ public class SerialCommSend {
         MySerialPort.setComPortParameters(BaudRate,DataBits,StopBits,Parity);//Sets all serial port parameters at one time
         MySerialPort.openPort(); //open the port
 
+
         if (MySerialPort.isOpen()) {
             System.out.println("\n" + MySerialPort.getSystemPortName() + "  is open ");
         }
@@ -29,22 +32,38 @@ public class SerialCommSend {
             System.out.println(" Port not open ");
         }
         //Display the Serial Port parameters
-        System.out.println("\n Selected Port               = " + MySerialPort.getSystemPortName());
+        System.out.println("\n Selected Port                = " + MySerialPort.getSystemPortName());
         System.out.println(" Selected Baud rate          = " + MySerialPort.getBaudRate());
         System.out.println(" Selected Number of DataBits = " + MySerialPort.getNumDataBits());
         System.out.println(" Selected Number of StopBits = " + MySerialPort.getNumStopBits());
         System.out.println(" Selected Parity             = " + MySerialPort.getParity());
 
         try {
-            String text = "Hallo";
-            MySerialPort.getOutputStream().write(text.getBytes());
-            MySerialPort.getOutputStream().flush();
-            MySerialPort.getOutputStream().close();
-            System.out.print(" Text Transmitted -> " + text );
-        }
-        catch (Exception e) {
+            try {
+                String text = "Hallo";
+                byte[] bytes = text.getBytes(StandardCharsets.UTF_8);
+                MySerialPort.getOutputStream().write(bytes);
+                MySerialPort.getOutputStream().flush();
+                MySerialPort.getOutputStream().close();
+                System.out.println(" Text Transmitted -> " + text );
+
+                //Or like this
+
+                int bytesTxed  = 0;
+                bytesTxed  = MySerialPort.writeBytes(bytes,bytes.length);
+
+                System.out.print(" Bytes Transmitted -> " + bytesTxed );
+
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            //Add a delay of 1 second after opening the serial port to send all data
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         MySerialPort.closePort();
         if (MySerialPort.isOpen()){
             System.out.println(MySerialPort.getSystemPortName() + " is still open ");

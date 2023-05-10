@@ -13,7 +13,7 @@ public class SerialCommReceive {
             System.out.println(i + " - " + AvailablePorts[i].getSystemPortName() + " -> " + AvailablePorts[i].getDescriptivePortName());
         }
 
-        SerialPort comPort = SerialPort.getCommPorts()[1];
+        SerialPort comPort = SerialPort.getCommPorts()[2];
         comPort.openPort();
         System.out.println("\n" + comPort.getSystemPortName());
         try {
