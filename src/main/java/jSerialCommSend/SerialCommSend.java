@@ -24,6 +24,12 @@ public class SerialCommSend {
         MySerialPort.setComPortParameters(BaudRate,DataBits,StopBits,Parity);//Sets all serial port parameters at one time
         MySerialPort.openPort(); //open the port
 
+        // add a delay of 1 second after opening to initialize and stabilize the serial port connection
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         if (MySerialPort.isOpen()) {
             System.out.println("\n" + MySerialPort.getSystemPortName() + "  is open ");
@@ -58,7 +64,7 @@ public class SerialCommSend {
             catch (Exception e) {
                 e.printStackTrace();
             }
-            //Add a delay of 1 second after opening the serial port to send all data
+            //Add a delay of 1 second to send all data
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
