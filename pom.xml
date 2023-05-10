@@ -39,7 +39,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.pi4j</groupId>
-    <artifactId>pi4j-v2-devices</artifactId>
+    <artifactId>HTS-PiProjekt</artifactId>
     <name>Pi4J :: DEVICE EXAMPLE :: Sample device project</name>
     <description>Pi4J TCA9548 Device Code</description>
     <version>0.0.1</version>
