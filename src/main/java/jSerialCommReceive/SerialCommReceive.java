@@ -1,4 +1,4 @@
-package jSerialCommWrite;
+package jSerialCommReceive;
 
 
 import com.fazecast.jSerialComm.*;

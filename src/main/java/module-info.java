@@ -21,8 +21,8 @@ module com.pi4j.devices{
 
     uses com.pi4j.extension.Extension;
     uses com.pi4j.provider.Provider;
-    exports com.pi4j.devices.bmp280 ;
-    exports jSerialCommWrite;
+    exports BMP280;
+    exports jSerialCommReceive;
 
 
 }

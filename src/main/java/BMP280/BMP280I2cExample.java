@@ -1,4 +1,4 @@
-package com.pi4j.devices.bmp280;
+package BMP280;
 
 /*
  *
@@ -32,7 +32,6 @@ package com.pi4j.devices.bmp280;
 
 
 import com.pi4j.Pi4J;
-import com.pi4j.context.Context;
 import com.pi4j.exception.LifecycleException;
 import com.pi4j.plugin.linuxfs.provider.i2c.LinuxFsI2CProvider;
 import com.pi4j.util.Console;

@@ -1,4 +1,4 @@
-package com.pi4j.devices.bmp280;/*
+package BMP280;/*
  *
  *
  *
