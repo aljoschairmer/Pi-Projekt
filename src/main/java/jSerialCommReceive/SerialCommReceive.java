@@ -1,16 +1,11 @@
 package jSerialCommReceive;
 
+import com.fazecast.jSerialComm.SerialPort;
 
-import com.fazecast.jSerialComm.*;
+import java.nio.charset.StandardCharsets;
 
 public class SerialCommReceive {
-    public static void main (String[] Args) {
-
-        int BaudRate = 9600;
-        int DataBits = 8;
-        int StopBits = SerialPort.ONE_STOP_BIT;
-        int Parity   = SerialPort.NO_PARITY;
-
+    public static void main(String[] args) {
         //Print all available serial ports
         SerialPort[] AvailablePorts = SerialPort.getCommPorts();
         System.out.print("\n\n Available Ports ");
@@ -18,39 +13,24 @@ public class SerialCommReceive {
             System.out.println(i + " - " + AvailablePorts[i].getSystemPortName() + " -> " + AvailablePorts[i].getDescriptivePortName());
         }
 
-        SerialPort MySerialPort = AvailablePorts[2];
-        MySerialPort.setComPortParameters(BaudRate,DataBits,StopBits,Parity);//Sets all serial port parameters at one time
-        MySerialPort.openPort(); //open the port
-
-        if (MySerialPort.isOpen()) {
-            System.out.println("\n" + MySerialPort.getSystemPortName() + "  is open ");
-        }
-        else {
-            System.out.println(" Port not open ");
-        }
-        //Display the Serial Port parameters
-        System.out.println("\n Selected Port               = " + MySerialPort.getSystemPortName());
-        System.out.println(" Selected Baud rate          = " + MySerialPort.getBaudRate());
-        System.out.println(" Selected Number of DataBits = " + MySerialPort.getNumDataBits());
-        System.out.println(" Selected Number of StopBits = " + MySerialPort.getNumStopBits());
-        System.out.println(" Selected Parity             = " + MySerialPort.getParity());
-
+        SerialPort comPort = SerialPort.getCommPorts()[1];
+        comPort.openPort();
+        System.out.println("\n" + comPort.getSystemPortName());
         try {
-            String text = "Hallo";
-            MySerialPort.getOutputStream().write(text.getBytes());
-            MySerialPort.getOutputStream().flush();
-            MySerialPort.getOutputStream().close();
-            System.out.print(" Text Transmitted -> " + text );
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        MySerialPort.closePort();
-        if (MySerialPort.isOpen()){
-            System.out.println(MySerialPort.getSystemPortName() + " is still open ");
-        }
-        else {
-            System.out.println("\n Port closed ");
-        }
+            while (true)
+            {
+                while (comPort.bytesAvailable() == 0)
+                    Thread.sleep(20);
+
+                byte[] readBuffer = new byte[comPort.bytesAvailable()];
+                int numRead = comPort.readBytes(readBuffer, readBuffer.length);
+                System.out.println("Read " + numRead + " bytes.");
+                String text = new String(readBuffer, StandardCharsets.UTF_8);
+                System.out.println("Received -> "+ text);
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        comPort.closePort();
     }
 }
+
+
