@@ -163,6 +163,12 @@ public class BMP280I2cExample {
         double press3 = bmpDev.pressureMb();
         console.println(" Pressure mb = " + press3);
 
+        SerialSend test = new SerialSend();
+        for (int i = 0; i < 9; i++) {
+            SerialSend.sendData("test");
+            test.sendData("hallo");
+        }
+
 
         // Shutdown Pi4J
         pi4j.shutdown();
